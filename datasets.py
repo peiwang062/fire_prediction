@@ -39,26 +39,6 @@ def rgb2gray(rgb):
     return gray
 
 
-class ImageFilelist(data.Dataset):
-    def __init__(self, flist, transform=None, target_transform=None,
-                 flist_reader=default_flist_reader, loader=default_loader):
-        self.imlist = flist_reader(flist)
-        self.transform = transform
-        self.target_transform = target_transform
-        self.loader = loader
-
-    def __getitem__(self, index):
-        impath, target, index = self.imlist[index]
-        img = self.loader(impath)
-        if self.transform is not None:
-            img = self.transform(img)
-        if self.target_transform is not None:
-            target = self.target_transform(target)
-
-        return img, target, index
-
-    def __len__(self):
-        return len(self.imlist)
 
 
 def fire_prediction_DB(batch_size, train_list, val_list, train=True, val=True, **kwargs):
